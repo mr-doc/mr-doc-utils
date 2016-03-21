@@ -1,6 +1,6 @@
 {
   "name": "mr-doc-utils",
-  "version": "prelease",
+  "version": "1.0.0-alpha.1",
   "description": "Utilities for Mr. Doc",
   "main": "index.js",
   "scripts": {
