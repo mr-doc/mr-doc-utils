@@ -1,0 +1,30 @@
+{
+  "name": "mr-doc-utils",
+  "version": "prelease",
+  "description": "Utilities for Mr. Doc",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mr-doc/mr-doc-utils.git"
+  },
+  "author": "iwatakeshi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mr-doc/mr-doc-utils/issues"
+  },
+  "homepage": "https://github.com/mr-doc/mr-doc-utils#readme",
+  "dependencies": {
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-react": "^4.2.3",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-mocha": "^2.2.0"
+  }
+}
