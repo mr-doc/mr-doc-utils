@@ -59,4 +59,9 @@ describe('option', () => {
       { name: 'Mr. Doc', homepage: '#', repository: '#' });
     });
   });
+  describe('option.defaults', () => {
+    it('should return an object', () => {
+      assert.isObject(Option.defaults());
+    });
+  });
 });

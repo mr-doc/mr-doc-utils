@@ -51,6 +51,7 @@ class Option {
       compiler: () => Option.compiler(this._options.compiler),
       theme: () => Option.theme(this._options.theme),
       project: () => Option.project(this._options.project),
+      defaults: () => Option.defaults(),
     };
   }
   /**
@@ -88,6 +89,14 @@ class Option {
    */
   static project(options) {
     return _.merge(defaults.project, options || {});
+  }
+  /**
+   * Get the default options.
+   * @static
+   * @return {Object} The default options for Mr. Doc.
+   */
+  static defaults() {
+    return defaults;
   }
 }
 
