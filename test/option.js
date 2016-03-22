@@ -6,7 +6,7 @@ describe('option', () => {
   it('should return helper methods', () => {
     assert.isDefined((new Option().options()));
   });
-  describe('option.parser', () => {
+  describe('option.parser()', () => {
     it('should return an object', () => {
       assert.isObject(Option.parser());
     });
@@ -20,7 +20,7 @@ describe('option', () => {
       });
     });
   });
-  describe('option.compiler', () => {
+  describe('option.compiler()', () => {
     it('should return an object', () => {
       assert.isObject(Option.compiler());
     });
@@ -41,7 +41,7 @@ describe('option', () => {
       });
     });
   });
-  describe('option.theme', () => {
+  describe('option.theme()', () => {
     it('should return an object', () => {
       assert.isObject(Option.theme());
     });
@@ -50,7 +50,7 @@ describe('option', () => {
       { name: 'mr-doc-theme-default', path: '/test' });
     });
   });
-  describe('option.project', () => {
+  describe('option.project()', () => {
     it('should return an object', () => {
       assert.isObject(Option.project());
     });
@@ -59,7 +59,7 @@ describe('option', () => {
       { name: 'Mr. Doc', homepage: '#', repository: '#' });
     });
   });
-  describe('option.defaults', () => {
+  describe('option.defaults()', () => {
     it('should return an object', () => {
       assert.isObject(Option.defaults());
     });
