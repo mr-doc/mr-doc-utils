@@ -14,6 +14,7 @@ const defaults = {
     },
   },
   theme: { name: 'mr-doc-theme-default', path: null },
+  log: { level: 'info', silent: false },
   project: { name: '#', homepage: '#', repository: '#' },
 };
 
@@ -50,6 +51,7 @@ class Option {
       parser: () => Option.parser(this._options.parser),
       compiler: () => Option.compiler(this._options.compiler),
       theme: () => Option.theme(this._options.theme),
+      log: () => Option.log(this._options.log),
       project: () => Option.project(this._options.project),
       defaults: () => Option.defaults(),
     };
@@ -80,6 +82,14 @@ class Option {
    */
   static theme(options) {
     return _.merge(defaults.theme, options || {});
+  }
+  /**
+   * Get the log options.
+   * @param  {Object} options - The options for the log.
+   * @return {Object}         - The extended options for the log.
+   */
+  static log(options) {
+    return _.merge(defaults.log, options || {});
   }
   /**
    * Get the project options.

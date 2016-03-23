@@ -50,6 +50,15 @@ describe('option', () => {
       { name: 'mr-doc-theme-default', path: '/test' });
     });
   });
+  describe('option.log()', () => {
+    it('should return an object', () => {
+      assert.isObject(Option.log());
+    });
+    it('should return an extended object', () => {
+      assert.deepEqual(Option.log({ level: 'warn' }),
+      { level: 'warn', silent: false });
+    });
+  });
   describe('option.project()', () => {
     it('should return an object', () => {
       assert.isObject(Option.project());
