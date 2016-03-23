@@ -1,7 +1,7 @@
 const Option = require('./src/option');
 const Log = require('./src/log');
 
-module.export = {
+module.exports = {
   Option,
   Log,
 };
