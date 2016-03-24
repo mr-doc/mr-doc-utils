@@ -172,7 +172,7 @@ class Option {
         type: 'string',
         default: Path.join(process.cwd(), '.mrdocrc'),
         describe: chalk.gray(
-          `Set path to .mrdocrc.
+          `Set the path to .mrdocrc.
           This will set the cwd to the rc's directory as well.`),
       },
       cwd: {
