@@ -5,11 +5,19 @@ const chalk = require('chalk');
 const sparkles = require('sparkles');
 const _ = require('lodash');
 
-// Format the messagse
+/**
+ * Format the messagse
+ * @param  {*} message - The message to format.
+ * @return {*}         - The formatted message.
+ */
 function format(message) {
   return _.isString(message) ? Util.format.apply(null, arguments) : message;
 }
-// Create a logger for the current namespace.
+/**
+ * Create a logger for the current namespace.
+ * @ignore
+ * @return {Function} - The logger function that emits the message.
+ */
 const logger = level => function emit() {
   this.emit(level, format.apply(null, arguments));
 };
@@ -18,7 +26,7 @@ const logger = level => function emit() {
 class Log {
   /**
    * Create a Log util.
-   * @param  {String} namespace The namespace for the logger.
+   * @param  {String} namespace - The namespace for the logger.
    */
   constructor(namespace) {
     this.event = sparkles(_.isEmpty(namespace) ? namespace : 'mrdoc');
@@ -69,7 +77,7 @@ class Log {
     return ['debug', 'info', 'warn', 'error'];
   }
   /**
-   * Get an instance of Chalk
+   * Get an instance of Chalk.
    * @return {Chalk} - An instance of Chalk.
    */
   static get color() {
