@@ -2,7 +2,6 @@
 const _ = require('lodash');
 const chalk = require('chalk');
 const Path = require('path');
-const File = require('fs');
 
 // Set default options
 const defaults = {
@@ -157,20 +156,10 @@ class Option {
         version: options.parserVersion,
       }),
       theme: Option.theme({
-        name: (() => {
-          if (options.theme) {
-            return !File.lstatSync(options.theme).isDirectory() ?
-            options.theme : 'Custom theme';
-          }
-          return Option.theme().name;
-        })(),
-        path: (() => {
-          if (options.theme) {
-            return File.lstatSync(options.theme).isDirectory() ?
-            options.theme : null;
-          }
-          return Option.theme().path;
-        })(),
+        name: (options.theme && options.theme.indexOf(Path.sep) > -1) ?
+        'Custom theme' : Option.theme().name,
+        path: (options.theme && options.theme.indexOf(Path.sep) > -1) ?
+        Option.theme().path : null,
       }),
     };
   }
