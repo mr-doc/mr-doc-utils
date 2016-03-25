@@ -2,14 +2,15 @@
 const _ = require('lodash');
 const chalk = require('chalk');
 const Path = require('path');
+const File = require('fs');
 
 // Set default options
 const defaults = {
-  parser: { language: 'javascript', engine: 'espree', version: '6' },
+  parser: { language: 'javascript', engine: 'espree', version: 6 },
   compiler: {
     file: {
-      name: 'files',
-      format: 'json',
+      name: 'docs',
+      format: 'html',
     },
     template: {
       path: null,
@@ -17,8 +18,14 @@ const defaults = {
     },
   },
   theme: { name: 'mr-doc-theme-default', path: null },
-  log: { level: 'info', silent: false },
-  project: { name: '#', homepage: '#', repository: '#' },
+  log: { level: 'info, warn', silent: false },
+  project: {
+    name: '#',
+    url: {
+      home: '#',
+      repo: '#',
+    },
+  },
 };
 
 /** @class Option - A class that represents an option. */
@@ -150,10 +157,20 @@ class Option {
         version: options.parserVersion,
       }),
       theme: Option.theme({
-        name: !File.lstatSync(options.theme).isDirectory() ?
-        options.theme : 'Custom theme',
-        path: File.lstatSync(options.theme).isDirectory() ?
-        options.theme : null,
+        name: (() => {
+          if (options.theme) {
+            return !File.lstatSync(options.theme).isDirectory() ?
+            options.theme : 'Custom theme';
+          }
+          return Option.theme().name;
+        })(),
+        path: (() => {
+          if (options.theme) {
+            return File.lstatSync(options.theme).isDirectory() ?
+            options.theme : null;
+          }
+          return Option.theme().path;
+        })(),
       }),
     };
   }
@@ -182,8 +199,8 @@ class Option {
       },
       'compiler-engine': {
         type: 'string',
-        default: 'jade',
-        describe: chalk.gray('Set the compiler engine specific to the output format.'),
+        default: Option.compiler().template.format,
+        describe: chalk.gray('Set the compiler engine specific to the html output.'),
       },
       source: {
         alias: 's',
@@ -200,12 +217,12 @@ class Option {
       format: {
         alias: 'f',
         type: 'string',
-        default: 'html',
-        describe: chalk.gray('Set the output format. Formats: html, json, md'),
+        default: Option.compiler().file.format,
+        describe: chalk.gray('Set the output format. Formats: html, json, md.'),
       },
       'format-name': {
         type: 'string',
-        default: 'docs',
+        default: Option.compiler().file.name,
         describe: chalk.gray('Set the output name. Note: Only in json and md format.'),
       },
       template: {
@@ -216,28 +233,42 @@ class Option {
       theme: {
         alias: 't',
         type: 'string',
-        // TODO: Replace this with mr-doc-theme-default
-        default: 'mr-doc-theme-starter-kit',
+        default: Option.theme().name,
         describe: chalk.gray('Set the theme to use. Note: Name or path is allowed.'),
       },
       'parser-lang': {
         type: 'string',
-        default: 'javascript',
+        default: Option.parser().language,
         describe: chalk.gray(
           'Set the language of the sources. Note: This is automatically detected.'),
       },
       'parser-engine': {
         alias: 'e',
         type: 'string',
-        default: 'espree',
+        default: Option.parser().engine,
         describe: chalk.gray(
           'Set the parser engine (if applicable). i.e. espree, babylon, etc.'),
       },
       'parser-version': {
         alias: 'y',
         type: 'number',
-        default: 6,
-        describe: chalk.gray('Set the parser version. i.e. "6"'),
+        default: Option.parser().version,
+        describe: chalk.gray('Set the parser version. i.e. \'6\'.'),
+      },
+      'project-name': {
+        type: 'string',
+        default: Option.project().name,
+        describe: chalk.gray('Set the project name.'),
+      },
+      'project-homepage': {
+        type: 'string',
+        default: Option.project().url.home,
+        describe: chalk.gray('Set the project homepage url.'),
+      },
+      'project-repo': {
+        type: 'string',
+        default: Option.project().url.repo,
+        describe: chalk.gray('Set the project url.'),
       },
       log: {
         alias: 'l',
@@ -250,7 +281,7 @@ class Option {
           chalk.gray('silent'),
         ].join(', ')}`),
         required: false,
-        default: 'info, warn',
+        default: Option.log().level,
       },
     };
   }

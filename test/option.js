@@ -16,7 +16,7 @@ describe('option', () => {
       }), {
         language: 'javascript',
         engine: 'babylon',
-        version: '6',
+        version: 6,
       });
     });
   });
@@ -31,7 +31,7 @@ describe('option', () => {
         },
       }), {
         file: {
-          name: 'files',
+          name: 'docs',
           format: 'html',
         },
         template: {
@@ -65,12 +65,22 @@ describe('option', () => {
     });
     it('should return an extended object', () => {
       assert.deepEqual(Option.project({ name: 'Mr. Doc' }),
-      { name: 'Mr. Doc', homepage: '#', repository: '#' });
+      { name: 'Mr. Doc', url: { home: '#', repo: '#' } });
     });
   });
   describe('option.defaults()', () => {
     it('should return an object', () => {
       assert.isObject(Option.defaults());
+    });
+  });
+  describe('option.merge()', () => {
+    it('should return an object', () => {
+      assert.isObject(Option.merge({}));
+    });
+  });
+  describe('option.cli()', () => {
+    it('should return an object', () => {
+      assert.isObject(Option.cli());
     });
   });
 });
