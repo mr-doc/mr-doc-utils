@@ -51,14 +51,14 @@ describe('log', () => {
     });
   });
   describe('formating strings', () => {
-    it('formats a string message with util.format syntax', done => {
+    it('should format a string message with util.format syntax', done => {
       log.on('debug', message => {
         assert.strictEqual(message, 'test something');
         done();
       });
       log.debug('test %s', 'something');
     });
-    it('does not format a non-string message', done => {
+    it('should not format a non-string message', done => {
       const expected = { test: 'something' };
       log.on('debug', message => {
         assert.deepEqual(message, expected);

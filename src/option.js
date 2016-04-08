@@ -1,173 +1,97 @@
 'use strict';
+const Path = require('path');
 const _ = require('lodash');
 const chalk = require('chalk');
-const Path = require('path');
 
-// Set default options
-const defaults = {
-  parser: { language: 'javascript', engine: 'espree', version: 6 },
-  compiler: {
-    file: {
-      name: 'docs',
-      format: 'html',
-    },
-    template: {
-      path: null,
-      engine: 'jade',
-    },
-  },
-  theme: { name: 'mr-doc-theme-default', path: null },
-  log: { level: 'info, warn', silent: false },
-  project: {
-    name: '#',
-    url: {
-      home: '#',
-      repo: '#',
-    },
-  },
-};
-
-/** @class Option - A class that represents an option. */
 class Option {
   /**
-   * Create an options util.
-   * @param  {Object} options - The options for Mr. Doc.
+   * Get the default options.
+   * @return {Object}         - The merged options.
    */
-  constructor(options) {
-    this._options = options || {};
-  }
-  /**
-   * Get the options.
-   * @return {Object} - An object with helper methods.
-   * @example
-   * // Get the options;
-   * const options = (new Option(myoptions)).options();
-   *
-   * // Get the options for parser
-   * const parserOp = options.parser();
-   *
-   * // Get the options for compiler
-   * const compilerOp = options.compiler();
-   *
-   * // Get the options for theme
-   * const themeOp = options.theme();
-   *
-   * // Get the options for project
-   * const projectOp = options.project();
-   *
-   * // Get the default options
-   * const defaultOp = options.project();
-   *
-   * // Merge yarg options.
-   * const yargOp = options.merge(Yarg.argv);
-   *
-   * // Get CLI options.
-   * const cliOp = options.cli();
-   */
-  options() {
+  static get defaults() {
     return {
-      parser: () => Option.parser(this._options.parser),
-      compiler: () => Option.compiler(this._options.compiler),
-      theme: () => Option.theme(this._options.theme),
-      log: () => Option.log(this._options.log),
-      project: () => Option.project(this._options.project),
-      defaults: () => Option.defaults(),
-      merge: (opts) => Option.merge(opts),
-      cli: () => Option.cli(),
+      parser: {
+        language: 'javascript',
+        engine: 'espree',
+        version: 6,
+      },
+      compiler: {
+        file: {
+          name: 'docs',
+          format: 'html',
+        },
+        template: {
+          path: undefined,
+          engine: 'jade',
+        },
+      },
+      theme: {
+        name: 'mr-doc-theme-default',
+        path: undefined,
+      },
+      log: {
+        level: 'info, warn',
+        silent: false,
+      },
+      project: {
+        name: '#',
+        url: {
+          home: '#',
+          repo: '#',
+        },
+      },
     };
   }
   /**
-   * Get the parser options.
-   * @static
-   * @param  {Object} options - The options for the parser.
-   * @return {Object}         - The extended options for the parser.
-   */
-  static parser(options) {
-    return _.merge(defaults.parser, options || {});
-  }
-  /**
-   * Get the compiler options.
-   * @static
-   * @param  {Object} options - The options for the compiler.
-   * @return {Object}         - The extended options for the compiler.
-   */
-  static compiler(options) {
-    return _.merge(defaults.compiler, options || {});
-  }
-  /**
-   * Get the theme options.
-   * @static
-   * @param  {Object} options - The options for the theme.
-   * @return {Object}         - The extended options for the theme.
-   */
-  static theme(options) {
-    return _.merge(defaults.theme, options || {});
-  }
-  /**
-   * Get the log options.
-   * @param  {Object} options - The options for the log.
-   * @return {Object}         - The extended options for the log.
-   */
-  static log(options) {
-    return _.merge(defaults.log, options || {});
-  }
-  /**
-   * Get the project options.
-   * @static
-   * @param  {Object} options - The options for the project.
-   * @return {Object}         - The extended options for the project.
-   */
-  static project(options) {
-    return _.merge(defaults.project, options || {});
-  }
-  /**
-   * Get the default options.
-   * @static
-   * @return {Object} The default options for Mr. Doc.
-   */
-  static defaults() {
-    return defaults;
-  }
-  /**
-   * Merge CLI options.
+   * Merge the CLI options.
    * @param  {Object} options - The yarg options to merge.
+   * @param {Boolean} normalize - Determine whether the options should be normalized.
    * @return {Object}         - The merged options.
    */
-  static merge(options) {
+  static merge(options, normalize) {
+    return _.merge(Option.defaults, normalize === true ? Option.normalize(options) : options);
+  }
+  /**
+   * Normalize CLI options.
+   * @param  {Object} options - The yarg options to merge.
+   * @return {Object}         - The normalized options.
+   */
+  static normalize(options) {
     return {
       mrdoc: {
         source: options.source || options.s,
         output: options.output || options.o,
         cwd: options.cwd,
       },
-      compiler: Option.compiler({
+      compiler: {
         file: {
           name: options.formatName,
           format: options.format,
         },
         template: {
-          path: options.template || options.b || null,
+          path: options.template || options.b,
           engine: options.compilerEngine,
         },
-      }),
-      parser: Option.parser({
+      },
+      parser: {
         language: options.parserLang,
         engine: options.parserEngine,
         version: options.parserVersion,
-      }),
-      theme: Option.theme({
+      },
+      theme: {
         name: (options.theme && options.theme.indexOf(Path.sep) > -1) ?
-        'Custom theme' : Option.theme().name,
+        'Custom theme' : 'mr-doc-theme-default',
         path: (options.theme && options.theme.indexOf(Path.sep) > -1) ?
-        Option.theme().path : null,
-      }),
+        options.path : undefined,
+      },
     };
   }
   /**
-   * Get CLI options.
+   * Get the CLI options.
+   * @static
    * @return {Object} - The CLI options.
    */
-  static cli() {
+  static get cli() {
     return {
       version: {
         alias: 'v',
@@ -188,7 +112,7 @@ class Option {
       },
       'compiler-engine': {
         type: 'string',
-        default: Option.compiler().template.format,
+        default: Option.defaults.compiler.template.format,
         describe: chalk.gray('Set the compiler engine specific to the html output.'),
       },
       source: {
@@ -206,12 +130,12 @@ class Option {
       format: {
         alias: 'f',
         type: 'string',
-        default: Option.compiler().file.format,
+        default: Option.defaults.compiler.file.format,
         describe: chalk.gray('Set the output format. Formats: html, json, md.'),
       },
       'format-name': {
         type: 'string',
-        default: Option.compiler().file.name,
+        default: Option.defaults.compiler.file.name,
         describe: chalk.gray('Set the output name. Note: Only in json and md format.'),
       },
       template: {
@@ -222,41 +146,41 @@ class Option {
       theme: {
         alias: 't',
         type: 'string',
-        default: Option.theme().name,
+        default: Option.defaults.theme.name,
         describe: chalk.gray('Set the theme to use. Note: Name or path is allowed.'),
       },
       'parser-lang': {
         type: 'string',
-        default: Option.parser().language,
+        default: Option.defaults.parser.language,
         describe: chalk.gray(
           'Set the language of the sources. Note: This is automatically detected.'),
       },
       'parser-engine': {
         alias: 'e',
         type: 'string',
-        default: Option.parser().engine,
+        default: Option.defaults.parser.engine,
         describe: chalk.gray(
           'Set the parser engine (if applicable). i.e. espree, babylon, etc.'),
       },
       'parser-version': {
         alias: 'y',
         type: 'number',
-        default: Option.parser().version,
+        default: Option.defaults.parser.version,
         describe: chalk.gray('Set the parser version. i.e. \'6\'.'),
       },
       'project-name': {
         type: 'string',
-        default: Option.project().name,
+        default: Option.defaults.project.name,
         describe: chalk.gray('Set the project name.'),
       },
       'project-homepage': {
         type: 'string',
-        default: Option.project().url.home,
+        default: Option.defaults.project.url.home,
         describe: chalk.gray('Set the project homepage url.'),
       },
       'project-repo': {
         type: 'string',
-        default: Option.project().url.repo,
+        default: Option.defaults.project.url.repo,
         describe: chalk.gray('Set the project url.'),
       },
       log: {
@@ -270,7 +194,7 @@ class Option {
           chalk.gray('silent'),
         ].join(', ')}`),
         required: false,
-        default: Option.log().level,
+        default: Option.defaults.log.level,
       },
     };
   }
