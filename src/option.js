@@ -79,10 +79,22 @@ class Option {
         version: options.parserVersion,
       },
       theme: {
-        name: (options.theme && options.theme.indexOf(Path.sep) > -1) ?
-        'Custom theme' : 'mr-doc-theme-default',
-        path: (options.theme && options.theme.indexOf(Path.sep) > -1) ?
-        options.path : undefined,
+        name: (() => {
+          if (_.isString(options.theme)) {
+            if (options.theme.indexOf(Path.sep) > -1) {
+              return 'Custom theme';
+            }
+          }
+          return 'mr-doc-theme-default';
+        })(),
+        path: (() => {
+          if (_.isString(options.theme)) {
+            if (options.theme.indexOf(Path.sep) > -1) {
+              return options.theme;
+            }
+          }
+          return undefined;
+        })(),
       },
     };
   }
