@@ -1,10 +1,10 @@
 'use strict';
 /* eslint-disable prefer-arrow-callback */
-const Log = require('mr-doc-utils').Log;
+const Log = require('./log');
 const log = new Log();
 const Vinyl = require('vinyl');
 const Through = require('through2');
-const Option = require('mr-doc-utils').Option;
+const Option = require('./option');
 
 class Output {
   constructor(options) {
