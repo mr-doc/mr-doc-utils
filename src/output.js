@@ -1,6 +1,5 @@
 'use strict';
 /* eslint-disable prefer-arrow-callback */
-const Source = require('./source');
 const Log = require('mr-doc-utils').Log;
 const log = new Log();
 const Vinyl = require('vinyl');
@@ -38,7 +37,8 @@ class Output {
     };
   }
   static format(buffer, parser, compiler, options) {
-    const files = Source.generateReferences(buffer);
+    // const files = Source.generateReferences(buffer);
+    const files = buffer;
     // DEBUG: Files
     log.debug(Log.color.blue('Number of files: '), files.length);
     const format = options.compiler.file.format;

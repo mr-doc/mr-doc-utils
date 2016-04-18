@@ -10,7 +10,6 @@ class Extension {
       javascript: '.js',
       json: '.json',
       html: '.html',
-      typescript: '.ts',
     };
   }
 }
