@@ -1,3 +1,5 @@
+'use strict';
+
 const File = require('fs-extra');
 const ShortID = require('shortid');
 const _ = require('lodash');
