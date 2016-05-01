@@ -62,7 +62,11 @@ class Option {
         source: options.source || options.s,
         output: options.output || options.o,
         cwd: options.cwd,
-        reference: options.reference || options.r,
+        reference: (() => {
+          const ref = options.reference || options.r;
+          if (ref === true || ref === 'true') return ref;
+          return false;
+        })(),
       },
       compiler: {
         file: {

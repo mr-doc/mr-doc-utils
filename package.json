@@ -1,6 +1,6 @@
 {
   "name": "mr-doc-utils",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Utilities for Mr. Doc",
   "main": "index.js",
   "scripts": {
