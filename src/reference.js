@@ -26,7 +26,7 @@ class Reference {
       id: ShortID.generate(),
       cwd: file.cwd,
       base: file.base.replace(file.cwd + Path.sep, ''),
-      path: Path.parse(file.path.replace(file.cwd + Path.sep, '')),
+      path: file.path,
       source: FS.readFileSync(file.path, 'utf8'),
       comments: undefined,
     });
