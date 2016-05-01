@@ -4,7 +4,18 @@ const FS = require('fs-extra');
 const _ = require('lodash');
 const Path = require('path');
 const isGlob = require('is-glob');
+
 class Source {
+  static generate(file) {
+    return {
+      id: file.id,
+      cwd: file.cwd,
+      base: file.base,
+      path: file.path,
+      source: file.source,
+      comments: file.comments,
+    };
+  }
   static normalizePath(source, options) {
     return source.split(',')
     .map(path => path.trim())

@@ -62,6 +62,7 @@ class Option {
         source: options.source || options.s,
         output: options.output || options.o,
         cwd: options.cwd,
+        reference: options.reference || options.r,
       },
       compiler: {
         file: {

@@ -1,11 +1,13 @@
 'use strict';
 
-const File = require('fs-extra');
-const ShortID = require('shortid');
+const FS = require('fs-extra');
 const _ = require('lodash');
 const Path = require('path');
+const Source = require('./source');
+const ShortID = require('shortid');
+
 class Reference {
-  static generate(files) {
+  static generate(files, options) {
     // Process the files.
     const result = files
     .map(file => Reference.processFile(file));
@@ -13,28 +15,24 @@ class Reference {
     const references = result
     .map(file => Reference.createReference(file));
     // Process the references and attach it to each file.
-    return result
-    .map(file => Reference.processReference(file, references));
+    return options.mrdoc.reference ?
+    result
+      .map(file => Reference.processReference(file, references)) :
+    result
+      .map(file => Reference.processFile(file));
   }
   static processFile(file) {
-    return {
+    return Source.generate({
       id: ShortID.generate(),
       cwd: file.cwd,
       base: file.base.replace(file.cwd + Path.sep, ''),
       path: Path.parse(file.path.replace(file.cwd + Path.sep, '')),
-      source: File.readFileSync(file.path, 'utf8'),
+      source: FS.readFileSync(file.path, 'utf8'),
       comments: undefined,
-    };
+    });
   }
   static createReference(file) {
-    return {
-      id: file.id,
-      cwd: file.cwd,
-      base: file.base,
-      path: file.path,
-      source: file.source,
-      comments: file.comments,
-    };
+    return Source.generate(file);
   }
   static processReference(file, references) {
     return _.merge(file, {

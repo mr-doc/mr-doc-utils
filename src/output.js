@@ -5,7 +5,7 @@ const log = new Log();
 const Vinyl = require('vinyl');
 const Through = require('through2');
 const Option = require('./option');
-
+const Reference = require('./reference');
 class Output {
   constructor(options) {
     this.options = options;
@@ -37,8 +37,7 @@ class Output {
     };
   }
   static format(buffer, parser, compiler, options) {
-    // const files = Source.generateReferences(buffer);
-    const files = buffer;
+    const files = Reference.generate(buffer, options);
     // DEBUG: Files
     log.debug(Log.color.blue('Number of files: '), files.length);
     const format = options.compiler.file.format;
