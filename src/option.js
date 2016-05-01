@@ -195,6 +195,12 @@ class Option {
         default: Option.defaults.project.url.repo,
         describe: chalk.gray('Set the project url.'),
       },
+      reference: {
+        alias: 'r',
+        type: 'boolean',
+        default: true,
+        describe: chalk.gray('Allow references of other files within each file.'),
+      },
       log: {
         alias: 'l',
         type: 'string',
