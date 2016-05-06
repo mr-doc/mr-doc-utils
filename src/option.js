@@ -219,6 +219,12 @@ class Option {
         required: false,
         default: Option.defaults.log.level,
       },
+      watch: {
+        alias: 'w',
+        type: 'boolean',
+        default: false,
+        describe: chalk.gray('Allow changes and additions to be watched.'),
+      },
     };
   }
 }
