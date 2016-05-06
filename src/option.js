@@ -67,6 +67,7 @@ class Option {
           if (ref === true || ref === 'true') return ref;
           return false;
         })(),
+        watch: options.watch || options.w,
       },
       compiler: {
         file: {
