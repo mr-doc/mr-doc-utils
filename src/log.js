@@ -19,7 +19,7 @@ function format(message) {
  * @return {Function} - The logger function that emits the message.
  */
 const logger = level => function emit() {
-  this.emit(level, format.apply(null, arguments));
+  this.emit(level, format(...arguments));
 };
 
 /** @class Log - A class that represents a logger. */
@@ -36,31 +36,31 @@ class Log {
    * Call the debug logger.
    */
   debug() {
-    this.event.debug.apply(this.event, arguments);
+    this.event.debug(...arguments);
   }
   /**
    * Call the debug logger.
    */
   info() {
-    this.event.info.apply(this.event, arguments);
+    this.event.info(...arguments);
   }
   /**
    * Call the debug logger.
    */
   warn() {
-    this.event.warn.apply(this.event, arguments);
+    this.event.warn(...arguments);
   }
   /**
    * Call the debug logger.
    */
   error() {
-    this.event.error.apply(this.event, arguments);
+    this.event.error(...arguments);
   }
   /**
    * Catch the event based on log level.
    */
   on() {
-    this.event.on.apply(this.event, arguments);
+    this.event.on(...arguments);
   }
   /**
    * Unsubscribe to the current namespace.

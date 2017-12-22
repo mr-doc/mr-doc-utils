@@ -1,4 +1,5 @@
 'use strict';
+
 const Path = require('path');
 const _ = require('lodash');
 const chalk = require('chalk');

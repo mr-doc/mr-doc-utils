@@ -5,7 +5,7 @@ const assert = require('chai').assert;
 const Log = require('../src/log');
 
 describe('log', () => {
-  let log = undefined;
+  let log;
   beforeEach(done => {
     log = new Log();
     done();

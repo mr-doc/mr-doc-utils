@@ -1,11 +1,14 @@
 'use strict';
+
 /* eslint-disable prefer-arrow-callback */
 const Log = require('./log');
+
 const log = new Log();
 const Vinyl = require('vinyl');
 const Through = require('through2');
 const Option = require('./option');
 const Reference = require('./reference');
+
 class Output {
   constructor(options) {
     this.options = options;
@@ -18,7 +21,7 @@ class Output {
   toStream() {
     const opt = this.options;
     return Output
-    .toStream(this.plugins[0](opt), this.plugins[1](opt), opt);
+      .toStream(this.plugins[0](opt), this.plugins[1](opt), opt);
   }
   static handler(buffer, parser, compiler, options) {
     const file = options.compiler.file;
@@ -27,7 +30,7 @@ class Output {
         if (file.format === 'json' || file.format === 'md') {
           this.push(new Vinyl({
             path: `${file.name}.${file.format}`,
-            contents: new Buffer(f),
+            contents: Buffer.from(f),
           }));
         } else if (file.format === 'html') {
           this.push(f);
@@ -43,8 +46,8 @@ class Output {
     const format = options.compiler.file.format;
     if (format === 'md' || format === 'json') {
       return files
-      .map(file => parser.parse(file))
-      .map(file => compiler.compile(file));
+        .map(file => parser.parse(file))
+        .map(file => compiler.compile(file));
     }
     return buffer;
   }

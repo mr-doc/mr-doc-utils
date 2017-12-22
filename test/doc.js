@@ -4,7 +4,7 @@ const Doc = require('../src/doc');
 const fixture = require('./fixtures/docs.json');
 
 describe('doc', () => {
-  const doc = new Doc(fixture);
+  const doc = (new Doc(fixture));
   describe('toJSON()', () => {
     it('should return the JSON object', () => {
       assert.deepEqual(doc.toJSON(), fixture);

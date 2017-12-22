@@ -1,4 +1,5 @@
 'use strict';
+
 const _ = require('lodash');
 /* eslint-disable no-param-reassign */
 /** @class Log - A class that represents the JSON Documentation. */
@@ -68,13 +69,13 @@ class Doc {
   static normalize(source) {
     // Transform the source to { path:..., comment:... }.
     const docs = source.comments
-    .map(comment => ({
-      path: comment.context.file.path.dir.replace(/\\/g, '/'),
-      comment,
-    }));
+      .map(comment => ({
+        path: comment.context.file.path.dir.replace(/\\/g, '/'),
+        comment,
+      }));
     // Transform docs and add files to the same directory.
     let dirs = docs
-    .map(comment => ({ path: comment.path, files: [] }));
+      .map(comment => ({ path: comment.path, files: [] }));
     dirs = _.uniqWith(dirs, _.isEqual);
     dirs.forEach(dir => {
       docs.forEach(doc => {
@@ -92,7 +93,7 @@ class Doc {
    */
   static unflatten(source) {
     const find = (obj, dir) =>
-    obj.children.filter(child => child.name === dir);
+      obj.children.filter(child => child.name === dir);
     return source.reduce((tree, doc) => {
       doc.path.split('/').reduce((obj, dir) => {
         const result = find(obj, dir);

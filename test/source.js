@@ -8,7 +8,7 @@ describe('source', () => {
   describe('normalizePath()', () => {
     it('should normalize path: "{cwd}/src" to ["{cwd}/src/*.js"]', () => {
       assert.deepEqual(Source.normalizePath('./src', options),
-      [`${Path.join(process.cwd(), './src/')}*.js`]);
+        [`${Path.join(process.cwd(), './src/')}*.js`]);
     });
   });
 });

@@ -10,16 +10,16 @@ class Reference {
   static generate(files, options) {
     // Process the files.
     const result = files
-    .map(file => Reference.processFile(file));
+      .map(file => Reference.processFile(file));
     // Create references for each file.
     const references = result
-    .map(file => Reference.createReference(file));
+      .map(file => Reference.createReference(file));
     // Process the references and attach it to each file.
     return options.mrdoc.reference ?
-    result
-      .map(file => Reference.processReference(file, references)) :
-    result
-      .map(file => Reference.processFile(file));
+      result
+        .map(file => Reference.processReference(file, references)) :
+      result
+        .map(file => Reference.processFile(file));
   }
   static processFile(file) {
     return Source.generate({

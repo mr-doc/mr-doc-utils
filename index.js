@@ -4,6 +4,7 @@ const Source = require('./src/source');
 const Reference = require('./src/reference');
 const Doc = require('./src/doc');
 const Output = require('./src/output');
+
 module.exports = {
   Option,
   Log,
