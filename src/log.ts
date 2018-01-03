@@ -25,7 +25,8 @@ function emit(this: EventEmitter, ...args: any[]) {
 };
 
 /** @class Log - A class that represents a logger. */
-export default class Log {
+export default 
+class Log {
   private event: any
   /**
    * The namespace of the logger's instance
