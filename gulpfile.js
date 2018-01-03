@@ -8,8 +8,8 @@ gulp.task('eslint', () => gulp
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()));
 
-gulp.task('mocha', ['eslint'], () => gulp
+gulp.task('mocha', () => gulp
   .src('test/*.js', { read: false })
   .pipe(mocha()));
 
-gulp.task('default', ['eslint', 'mocha']);
+gulp.task('default', ['mocha']);

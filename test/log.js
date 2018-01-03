@@ -1,70 +1,69 @@
 'use strict';
-
+Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-env node, mocha */
-const assert = require('chai').assert;
-const Log = require('../src/log');
-
+const chai_1 = require("chai");
+const log_1 = require("../src/log");
 describe('log', () => {
-  let log;
-  beforeEach(done => {
-    log = new Log();
-    done();
-  });
-  afterEach(done => {
-    log.off();
-    done();
-  });
-  describe('debug()', () => {
-    it('should emit a debug event when debug method is called', done => {
-      log.on('debug', message => {
-        assert.strictEqual(message, 'test');
+    let log;
+    beforeEach(done => {
+        log = new log_1.default();
         done();
-      });
-      log.debug('test');
     });
-  });
-  describe('info()', () => {
-    it('should emit a info event when info method is called', done => {
-      log.on('info', message => {
-        assert.strictEqual(message, 'test');
+    afterEach(done => {
+        log.off();
         done();
-      });
-      log.info('test');
     });
-  });
-  describe('warn()', () => {
-    it('should emit a warn event when warn method is called', done => {
-      log.on('warn', message => {
-        assert.strictEqual(message, 'test');
-        done();
-      });
-      log.warn('test');
+    describe('debug()', () => {
+        it('should emit a debug event when debug method is called', done => {
+            log.on('debug', (message) => {
+                chai_1.assert.strictEqual(message, 'test');
+                done();
+            });
+            log.debug('test');
+        });
     });
-  });
-  describe('error()', () => {
-    it('should emit a error event when error method is called', done => {
-      log.on('error', message => {
-        assert.strictEqual(message, 'test');
-        done();
-      });
-      log.error('test');
+    describe('info()', () => {
+        it('should emit a info event when info method is called', done => {
+            log.on('info', (message) => {
+                chai_1.assert.strictEqual(message, 'test');
+                done();
+            });
+            log.info('test');
+        });
     });
-  });
-  describe('formating strings', () => {
-    it('should format a string message with util.format syntax', done => {
-      log.on('debug', message => {
-        assert.strictEqual(message, 'test something');
-        done();
-      });
-      log.debug('test %s', 'something');
+    describe('warn()', () => {
+        it('should emit a warn event when warn method is called', done => {
+            log.on('warn', (message) => {
+                chai_1.assert.strictEqual(message, 'test');
+                done();
+            });
+            log.warn('test');
+        });
     });
-    it('should not format a non-string message', done => {
-      const expected = { test: 'something' };
-      log.on('debug', message => {
-        assert.deepEqual(message, expected);
-        done();
-      });
-      log.debug(expected);
+    describe('error()', () => {
+        it('should emit a error event when error method is called', done => {
+            log.on('error', (message) => {
+                chai_1.assert.strictEqual(message, 'test');
+                done();
+            });
+            log.error('test');
+        });
     });
-  });
+    describe('formating strings', () => {
+        it('should format a string message with util.format syntax', done => {
+            log.on('debug', (message) => {
+                chai_1.assert.strictEqual(message, 'test something');
+                done();
+            });
+            log.debug('test %s', 'something');
+        });
+        it('should not format a non-string message', done => {
+            const expected = { test: 'something' };
+            log.on('debug', (message) => {
+                chai_1.assert.deepEqual(message, expected);
+                done();
+            });
+            log.debug(expected);
+        });
+    });
 });
