@@ -20,14 +20,15 @@
     "chalk": "^2.3.0",
     "eslint-config-airbnb": "^16.1.0",
     "fs-extra": "^5.0.0",
-    "is-glob": "^4.0.0",
     "lodash": "^4.17.4",
-    "shortid": "^2.2.8",
-    "sparkles": "^1.0.0",
-    "through2": "^2.0.3",
-    "vinyl": "^2.1.0"
+    "sparkles": "^1.0.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.0.10",
+    "@types/chalk": "^2.2.0",
+    "@types/lodash": "^4.14.91",
+    "@types/mocha": "^2.2.45",
+    "@types/node": "^8.5.2",
     "babel-eslint": "^8.0.3",
     "chai": "^4.1.2",
     "eslint": "^4.13.1",

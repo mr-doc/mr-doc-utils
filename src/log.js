@@ -1,88 +1,85 @@
 'use strict';
-
+Object.defineProperty(exports, "__esModule", { value: true });
 const Util = require('util');
 const chalk = require('chalk');
 const sparkles = require('sparkles');
-const _ = require('lodash');
-
+const _ = require("lodash");
 /**
  * Format the messagse
  * @param  {*} message - The message to format.
  * @return {*}         - The formatted message.
  */
-function format(message) {
-  return _.isString(message) ? Util.format.apply(null, arguments) : message;
+function format() {
+    return _.isString(arguments[0]) ? Util.format.apply(null, arguments) : arguments[0];
 }
 /**
- * Create a logger for the current namespace.
+ * Create an emitter
  * @ignore
- * @return {Function} - The logger function that emits the message.
+ * @return function - The emitter function that emits the message.
  */
-const logger = level => function emit() {
-  this.emit(level, format(...arguments));
+const emitter = (level) => function emit(...args) {
+    this.emit(level, format(...args));
 };
-
 /** @class Log - A class that represents a logger. */
 class Log {
-  /**
-   * Create a Log util.
-   * @param  {String} namespace - The namespace for the logger.
-   */
-  constructor(namespace) {
-    this.event = sparkles(_.isEmpty(namespace) ? namespace : 'mrdoc');
-    Log.levels.forEach(level => { this.event[level] = logger(level); });
-  }
-  /**
-   * Call the debug logger.
-   */
-  debug() {
-    this.event.debug(...arguments);
-  }
-  /**
-   * Call the debug logger.
-   */
-  info() {
-    this.event.info(...arguments);
-  }
-  /**
-   * Call the debug logger.
-   */
-  warn() {
-    this.event.warn(...arguments);
-  }
-  /**
-   * Call the debug logger.
-   */
-  error() {
-    this.event.error(...arguments);
-  }
-  /**
-   * Catch the event based on log level.
-   */
-  on() {
-    this.event.on(...arguments);
-  }
-  /**
-   * Unsubscribe to the current namespace.
-   */
-  off() {
-    this.event.remove();
-  }
-  /**
-   * Get the available levels.
-   * @static
-   * @return {Array<string>} - The available levels in Log.
-   */
-  static get levels() {
-    return ['debug', 'info', 'warn', 'error'];
-  }
-  /**
-   * Get an instance of Chalk.
-   * @return {Chalk} - An instance of Chalk.
-   */
-  static get color() {
-    return chalk;
-  }
+    /**
+     * The namespace of the logger's instance
+     * @param namespace: string = 'mrdoc'
+     */
+    constructor(namespace = 'mrdoc') {
+        this.event = sparkles(namespace);
+        Log.levels.forEach(level => { this.event[level] = emitter(level); });
+    }
+    /**
+     * Call the debug logger.
+     */
+    debug(...args) {
+        this.event.debug(...args);
+    }
+    /**
+     * Call the debug logger.
+     */
+    info(...args) {
+        this.event.info(...args);
+    }
+    /**
+     * Call the debug logger.
+     */
+    warn(...args) {
+        this.event.warn(...args);
+    }
+    /**
+     * Call the debug logger.
+     */
+    error(...args) {
+        this.event.error(...args);
+    }
+    /**
+     * Catch the event based on log level.
+     */
+    on(...args) {
+        this.event.on(...args);
+    }
+    /**
+     * Unsubscribe to the current namespace.
+     */
+    off() {
+        this.event.remove();
+    }
+    /**
+     * Get the available levels.
+     * @static
+     * @return {Array<string>} - The available levels in Log.
+     */
+    static get levels() {
+        return ['debug', 'info', 'warn', 'error'];
+    }
+    /**
+     * Get an instance of Chalk.
+     * @return {Chalk} - An instance of Chalk.
+     */
+    static get color() {
+        return chalk;
+    }
 }
-
-module.exports = Log;
+exports.default = Log;
