@@ -15,7 +15,7 @@ export interface DocOptions {
   }
   log: {
     level: string
-    silent: false
+    silent: boolean
   }
   project: {
     name: string
@@ -32,7 +32,7 @@ export interface DocOptions {
   }
 }
 
-export function options(option = {}) {
+export function options(option = {}) : DocOptions {
   return _.assign({
     parser: {
       language: 'javascript',
@@ -53,6 +53,12 @@ export function options(option = {}) {
         home: '#',
         repo: '#',
       },
+    },
+    mrdoc: {
+      source: 'src/',
+      output: 'doc/',
+      cwd: process.cwd(),
+      watch: false,
     },
   }, option);
 }

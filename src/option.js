@@ -25,6 +25,12 @@ function options(option = {}) {
                 repo: '#',
             },
         },
+        mrdoc: {
+            source: 'src/',
+            output: 'doc/',
+            cwd: process.cwd(),
+            watch: false,
+        },
     }, option);
 }
 exports.options = options;
