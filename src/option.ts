@@ -29,7 +29,9 @@ export interface DocOptions {
     output: string
     cwd: string
     watch: boolean
-  }
+  },
+  include?: string[],
+  exlucde?: string[],
 }
 
 export function options(option = {}) : DocOptions {
@@ -60,6 +62,12 @@ export function options(option = {}) : DocOptions {
       cwd: process.cwd(),
       watch: false,
     },
+    include: [
+
+    ],
+    exclude: [
+
+    ]
   }, option);
 }
 
