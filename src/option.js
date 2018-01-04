@@ -31,6 +31,8 @@ function options(option = {}) {
             cwd: process.cwd(),
             watch: false,
         },
+        include: [],
+        exclude: []
     }, option);
 }
 exports.options = options;
