@@ -28,10 +28,10 @@ export interface DocOptions {
     source: string
     output: string
     cwd: string
-    watch: boolean
+    watch: boolean,
+    include?: string[],
+    exclude?: string[],
   },
-  include?: string[],
-  exlucde?: string[],
 }
 
 export function options(option = {}) : DocOptions {
@@ -61,13 +61,13 @@ export function options(option = {}) : DocOptions {
       output: 'doc/',
       cwd: process.cwd(),
       watch: false,
+      include: [
+
+      ],
+      exclude: [
+  
+      ]
     },
-    include: [
-
-    ],
-    exclude: [
-
-    ]
   }, option);
 }
 
@@ -89,6 +89,12 @@ export function assign(opt: any) {
       language: opt.parserLang,
       version: opt.parserVersion,
     },
+    include: [
+
+    ],
+    exclude: [
+
+    ]
   };
 }
 
