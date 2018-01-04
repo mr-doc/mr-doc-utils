@@ -30,9 +30,9 @@ function options(option = {}) {
             output: 'doc/',
             cwd: process.cwd(),
             watch: false,
+            include: [],
+            exclude: []
         },
-        include: [],
-        exclude: []
     }, option);
 }
 exports.options = options;
@@ -54,6 +54,8 @@ function assign(opt) {
             language: opt.parserLang,
             version: opt.parserVersion,
         },
+        include: [],
+        exclude: []
     };
 }
 exports.assign = assign;
