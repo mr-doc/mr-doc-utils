@@ -21,7 +21,7 @@ function format() {
  */
 const emitter = (level: string) => 
 function emit(this: EventEmitter, ...args: any[]) {
-  this.emit(level, format(...args));
+  this.emit(level, format.apply(null, args));
 };
 
 /** @class Log - A class that represents a logger. */

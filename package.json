@@ -4,7 +4,7 @@
   "description": "Utilities for Mr. Doc",
   "main": "index.js",
   "scripts": {
-    "test": "gulp"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "chalk": "^2.3.0",
     "eslint-config-airbnb": "^16.1.0",
     "fs-extra": "^5.0.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.10",
     "sparkles": "^1.0.0"
   },
   "devDependencies": {
@@ -31,13 +31,13 @@
     "@types/node": "^8.5.2",
     "babel-eslint": "^8.0.3",
     "chai": "^4.1.2",
-    "eslint": "^4.13.1",
+    "eslint": "^5.1.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-eslint": "^4.0.0",
-    "gulp-mocha": "^4.3.1"
+    "gulp-mocha": "^6.0.0"
   }
 }
