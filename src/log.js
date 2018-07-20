@@ -18,7 +18,7 @@ function format() {
  * @return function - The emitter function that emits the message.
  */
 const emitter = (level) => function emit(...args) {
-    this.emit(level, format(...args));
+    this.emit(level, format.apply(null, args));
 };
 /** @class Log - A class that represents a logger. */
 class Log {
